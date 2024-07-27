@@ -1,0 +1,148 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container_login {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.label_input {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 5px;
+}
+
+.p-password-input {
+  width: 300px;
+}
+
+/* OPEN ADMIN PAGE */
+.container_admin {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+.container_nav {
+  width: 200px;
+  height: 100vh;
+  background: slateblue;
+  padding: 0 5px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.logo_colegio {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+main {
+  margin-left: 200px;
+  width: calc(100% - 200px);
+  height: 100vh;
+}
+
+.inputs_datos_familia {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  row-gap: 10px;
+  column-gap: 8px;
+
+}
+
+.container_input_dni {
+  display: flex;
+  align-items: center;
+}
+
+.input_dni {
+  width: 100%;
+}
+
+.label_input_dni,
+.container_inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.container_inputs_estudiantes {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+}
+
+.container_btns {
+  display: flex;
+  gap: 5;
+}
+
+.container_btns {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.text_error {
+  margin: 0 0 5px 0;
+  padding: 0;
+
+  color: red;
+}
+
+/* END ADMIN PAGE */
+
+
+.container_balls {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.balls {
+  width: 3.5em;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.balls div {
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 50%;
+  background-color: slateblue;
+  transform: translateY(-100%);
+  animation: wave 0.8s ease-in-out alternate infinite;
+}
+
+.balls div:nth-of-type(1) {
+  animation-delay: -0.4s;
+}
+
+.balls div:nth-of-type(2) {
+  animation-delay: -0.2s;
+}
+
+@keyframes wave {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(100%);
+  }
+}
