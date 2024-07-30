@@ -76,7 +76,7 @@ main {
   flex-direction: column;
 }
 
-.container_inputs_estudiantes {
+.container_inputs_estudiantes,.container_inputs_detalles {
   display: grid;
   gap: 10px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -99,6 +99,10 @@ main {
   padding: 0;
 
   color: red;
+}
+
+.input {
+  color: #000000;
 }
 
 /* END ADMIN PAGE */
