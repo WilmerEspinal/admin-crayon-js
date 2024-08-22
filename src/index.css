@@ -40,6 +40,9 @@ body {
   top: 0;
   left: 0;
   bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .logo_colegio {
@@ -102,10 +105,68 @@ main {
 }
 
 .input {
+  color: red;
+}
+
+.p-inputtext {
   color: #000000;
 }
 
+.p-dropdown-label.p-placeholder{
+  color: #6b7280;
+}
+.container_user_name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+  margin-bottom: 20px;
+}
+
+.container_user_name > h2 {
+  margin: 0 0 5px 0;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 300;
+  font-size: 24px;
+}
+
+.container_user_name > p {
+  text-align: center;
+  color: #cecece;
+  margin: 0 0 15px 0;
+}
+
+
+.container_matricula {
+  padding: 0 10px;
+}
+
 /* END ADMIN PAGE */
+
+
+
+/* DOCENTE */
+.form_register {
+  width: 300px;
+}
+/* END DOCENTE */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 .container_balls {

@@ -1,95 +1,111 @@
-import axios from 'axios';
-import { Button } from 'primereact/button';
-import { InputText } from 'primereact/inputtext';
-import { Password } from 'primereact/password';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import axios from "axios";
+import { Button } from "primereact/button";
+import { InputText } from "primereact/inputtext";
+import { Password } from "primereact/password";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const navigate = useNavigate();
-    const [error, setError] = useState(null);
-    // const [data, setData] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [emailError, setEmailError] = useState(null);
+  const [passwordError, setPasswordError] = useState(null);
 
+  const navigate = useNavigate();
 
-    function handlerEmail(e) {
-        setEmail(e.target.value)
-    }
-    function handlePassword(e) {
-        setPassword(e.target.value)
-    }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        try {
-            const response = await axios.post('http://127.0.0.1:8000/api/login', { email, password })
-            if (response.data.error) {
-                setError(response.data.error)
-            } else {
-                const { token, requirePasswordChange } = response.data
-                if (requirePasswordChange) {
-                    localStorage.setItem('token', token)
-                    navigate('/change-password')
-                } else {
-                    localStorage.setItem('token', token);
-                    navigate('/admin-crayon')
-                }
-            }
-            // setData(response.data);
-        } catch (error) {
-            console.error('Error en el login', error);
-            if (error.response && error.response.status === 404) {
-                setError('Usuario no encontrado');
-                // switch (error.response.data) {
-                //     case 422:
-                //         setError('La contraseña debe tener 8 caracteres')
-                //         break;
-                //     case 400:
-                //         setError('La contraseña ingresada no existe')
-                //         break
-                //     case 404:
-                //         setError(response.data.response)
-                //         break
-                // }
-            } else if (error.response && error.response.status === 400) {
-                setError('La contraseña es incorrecta');
-            }
+    // Limpiar errores anteriores
+    setEmailError(null);
+    setPasswordError(null);
+
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/api/login", {
+        email,
+        password,
+      });
+
+      if (response.data.error) {
+        setError(response.data.error);
+      } else {
+        const { token, requirePasswordChange, role } = response.data;
+        localStorage.setItem("token", token);
+
+        if (requirePasswordChange) {
+          navigate("/change-password");
+        } else {
+          switch (role) {
+            case 1:
+              navigate("/aula-docente");
+              break;
+            case 2:
+              navigate("/aula-virtual");
+              break;
+            case 3:
+              navigate("/admin-crayon");
+              break;
+            default:
+              setError("Rol no reconocido");
+              break;
+          }
         }
+      }
+    } catch (error) {
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (status === 400) {
+          if (data.error === "La contraseña es incorrecta") {
+            setPasswordError(data.error);
+          } else {
+            setError(data.error);
+          }
+        } else {
+          setError("Error inesperado. Inténtalo de nuevo más tarde.");
+        }
+      } else {
+        setError("Error de conexión. Verifica tu red.");
+      }
     }
+  };
 
-    return (
-        <>
-            <section className="container_login">
-                <form onSubmit={handleSubmit} action="">
-                    <div className="">
-                        <label className='label_input' >email
-                            <InputText type='email' placeholder='ingrese su email' required
-                                value={email}
-                                onChange={handlerEmail}
-                                name='email'
-                            />
-                        </label>
+  return (
+    <section className="container_login">
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label className="label_input">
+            Email
+            <InputText
+              type="email"
+              placeholder="Ingrese su email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+            />
+            {emailError && <p className="text_error">{emailError}</p>}
+          </label>
+        </div>
+        <div>
+          <label className="label_input">
+            Contraseña
+            <Password
+              toggleMask
+              placeholder="Ingrese su contraseña"
+              feedback={false}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              name="password"
+            />
+            {passwordError && <p className="text_error">{passwordError}</p>}
+          </label>
+        </div>
+        <Button type="submit">Ingresar</Button>
+      </form>
+    </section>
+  );
+};
 
-                    </div>
-                    <div className="">
-                        <label className='label_input' >Contraseña
-                            <Password toggleMask placeholder='ingrese su contraseña'
-                                feedback={false}
-                                value={password}
-                                onChange={handlePassword}
-                                name='password'
-                            />
-
-                        </label>
-                    </div>
-                    {error && <p className='text_error'>{error}</p>}
-                    <Button type='submit'>Ingresar</Button>
-                </form>
-            </section>
-        </>
-    )
-}
-
-export default Login
+export default Login;

@@ -12,7 +12,10 @@ const FormPadre = ({ data, setData }) => {
     axios
       .get(`http://127.0.0.1:8000/api/consulta-dni/${data.dni}`)
       .then((response) => {
-        setData(response.data);
+        setData((prevData) => ({
+          ...response.data,
+          dni: prevData.dni,
+        }));
       })
       .catch((error) => {
         console.error("Error al obtener datos", error);
@@ -100,7 +103,7 @@ const FormPadre = ({ data, setData }) => {
           <InputText
             type="email"
             placeholder="ejemplo@gmail.com"
-            name="correoElectronico"
+            name="email"
             value={data.email}
             onChange={handleChange}
           />

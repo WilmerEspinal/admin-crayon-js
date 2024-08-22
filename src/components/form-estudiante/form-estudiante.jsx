@@ -5,15 +5,16 @@ import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 
 const FromEstudiante = ({ data, setData }) => {
-  const generos = [{ name: "Mujer" }, { name: "Hombre" }];
-
   const pais = [{ name: "Perú" }];
 
   const handleBuscar = () => {
     axios
       .get(`http://127.0.0.1:8000/api/consulta-dni/${data.dni}`)
       .then((response) => {
-        setData(response.data);
+        setData((prevData) => ({
+          ...response.data,
+          dni: prevData.dni,
+        }));
       })
       .catch((error) => {
         console.error("Error al obtener datos", error);
@@ -94,60 +95,15 @@ const FromEstudiante = ({ data, setData }) => {
               />
             </label>
           </div>
-          <div>
+          <div className="">
             <label className="container_inputs">
               F.N
               <Calendar
-                className="input"
+                className="input_calendar"
                 placeholder="MM/DD/YYYY"
                 value={data.date}
                 onChange={handleDateChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label className="container_inputs">
-              Sexo
-              <Dropdown
-                value={data.selectedCity}
-                onChange={(e) => handleDropdownChange(e, "selectedCity")}
-                options={generos}
-                optionLabel="name"
-                placeholder="Selecione su genero"
-                className="w-full md:w-14rem input"
-              />
-            </label>
-          </div>
-          <div>
-            <label className="container_inputs">
-              Lengua Materna
-              <InputText
-                className="input"
-                name="lenguaMaterna"
-                value={data.lenguaMaterna}
-                onChange={handleChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label className="container_inputs">
-              Segunda Lengua
-              <InputText
-                className="input"
-                name="segundaLengua"
-                value={data.segundaLengua}
-                onChange={handleChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label className="container_inputs">
-              Lugar de nacimiento
-              <InputText
-                className="input"
-                name="lugarNacimiento"
-                value={data.lugarNacimiento}
-                onChange={handleChange}
+                name="date"
               />
             </label>
           </div>
@@ -155,8 +111,8 @@ const FromEstudiante = ({ data, setData }) => {
             <label className="container_inputs">
               Pais
               <Dropdown
-                value={data.selectCountry}
-                onChange={(e) => handleDropdownChange(e, "selectCountry")}
+                value={data.pais}
+                onChange={(e) => handleDropdownChange(e, "pais")}
                 options={pais}
                 optionLabel="name"
                 placeholder="Selecione su pais"
@@ -166,22 +122,11 @@ const FromEstudiante = ({ data, setData }) => {
           </div>
           <div>
             <label className="container_inputs">
-              Religión
-              <InputText
-                className="input"
-                name="religion"
-                value={data.religion}
-                onChange={handleChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label className="container_inputs">
               Departamento
               <InputText
                 className="input"
                 name="departamento"
-                value={data.departamento}
+                value={data.departamento || ""}
                 onChange={handleChange}
               />
             </label>
@@ -192,7 +137,7 @@ const FromEstudiante = ({ data, setData }) => {
               <InputText
                 className="input"
                 name="provincia"
-                value={data.provincia}
+                value={data.provincia || ""}
                 onChange={handleChange}
               />
             </label>
@@ -203,7 +148,7 @@ const FromEstudiante = ({ data, setData }) => {
               <InputText
                 className="input"
                 name="distrito"
-                value={data.distrito}
+                value={data.distrito || ""}
                 onChange={handleChange}
               />
             </label>
@@ -214,9 +159,9 @@ const FromEstudiante = ({ data, setData }) => {
               <InputText
                 className="input"
                 type="email"
-                name="correoElectronico"
+                name="email"
                 placeholder="ejemplo@gmail.com"
-                value={data.correoElectronico}
+                value={data.email || ""}
                 onChange={handleChange}
               />
             </label>

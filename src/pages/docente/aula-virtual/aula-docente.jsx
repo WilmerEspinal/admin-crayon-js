@@ -3,18 +3,18 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button } from "primereact/button";
 import axios from "axios";
-import Logo from "../../assets/images/logo/logo-crayon.png";
 
-const AdminPage = () => {
+const AulaVirtualDocente = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState("");
 
   const items = [
     {
-      label: "Matriculas",
+      label: "Asistencia",
       icon: "pi pi-file",
-      items: [
+      command: () => navigate("registrar-asistencia"),
+      /*  items: [
         {
           label: "Nueva matricula",
           icon: "pi pi-file",
@@ -24,25 +24,7 @@ const AdminPage = () => {
           label: "Matriculados",
           icon: "pi pi-image",
         },
-      ],
-    },
-  ];
-
-  const itemDocente = [
-    {
-      label: "Docentes",
-      icon: "pi pi-file",
-      items: [
-        {
-          label: "Agregar docente",
-          icon: "pi pi-file",
-          command: () => navigate("agregar-docente"),
-        },
-        {
-          label: "Lista docentes",
-          icon: "pi pi-image",
-        },
-      ],
+      ], */
     },
   ];
 
@@ -83,13 +65,12 @@ const AdminPage = () => {
       <section className="container_admin">
         <section className="container_nav">
           <div>
-            <img className="logo_colegio" src={Logo} alt="Logo del colegio" />
+            <img className="logo_colegio" src={""} alt="Logo del colegio" />
             <PanelMenu model={items} className="w-full md:w-20rem" />
-            <PanelMenu model={itemDocente} className="w-full md:w-20rem" />
           </div>
 
           <div className="container_user_name">
-            <h2 className="">{userName}</h2>
+            <h2>{userName}</h2>
             <p>{userRole}</p>
             <Button onClick={handleLogout} label="Salir" severity="danger" />
           </div>
@@ -102,4 +83,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default AulaVirtualDocente;
