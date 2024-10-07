@@ -1,7 +1,9 @@
-import { PanelMenu } from "primereact/panelmenu";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+
 import { Button } from "primereact/button";
+import LogoCrayon from "../../../assets/images/logo/logo-crayon.png";
+import { PanelMenu } from "primereact/panelmenu";
 import axios from "axios";
 
 const AulaVirtualAlumno = () => {
@@ -11,21 +13,26 @@ const AulaVirtualAlumno = () => {
 
   const items = [
     {
-      label: "Matriculas",
+      label: "Cuotas",
       icon: "pi pi-file",
       items: [
         {
-          label: "Nueva matricula",
+          label: "Lista cuotas",
           icon: "pi pi-file",
-          command: () => navigate("registrar-matricula"),
+          command: () => navigate("cuotas"),
         },
         {
-          label: "Matriculados",
+          label: "Historial",
           icon: "pi pi-image",
+          command: () => navigate("historial-cuotas"),
         },
       ],
     },
   ];
+
+  useEffect(() => {
+    document.title = "Aula alumno - Crayons";
+  }, []);
 
   useEffect(() => {
     const obtenerUsuario = async () => {
@@ -53,7 +60,7 @@ const AulaVirtualAlumno = () => {
         },
       });
       localStorage.removeItem("token");
-      navigate("/"); // Redirige a la página de inicio de sesión o cualquier otra página deseada
+      navigate("/");
     } catch (error) {
       console.error("Error al cerrar sesión", error);
     }
@@ -64,7 +71,11 @@ const AulaVirtualAlumno = () => {
       <section className="container_admin">
         <section className="container_nav">
           <div>
-            <img className="logo_colegio" src={""} alt="Logo del colegio" />
+            <img
+              className="logo_colegio"
+              src={LogoCrayon}
+              alt="Logo del colegio"
+            />
             <PanelMenu model={items} className="w-full md:w-20rem" />
           </div>
 

@@ -1,8 +1,10 @@
-import axios from "axios";
+import { useEffect, useState } from "react";
+
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
+import LogoCrayons from "../../../assets/images/logo/logo-crayon.png";
 import { Password } from "primereact/password";
-import { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -14,10 +16,13 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    document.title = "Inicio - Colegio Crayons";
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Limpiar errores anteriores
     setEmailError(null);
     setPasswordError(null);
 
@@ -73,6 +78,7 @@ const Login = () => {
 
   return (
     <section className="container_login">
+      <img className="logo_login" src={LogoCrayons} alt="Logo del colegio" />
       <form onSubmit={handleSubmit}>
         <div>
           <label className="label_input">
@@ -102,7 +108,11 @@ const Login = () => {
             {passwordError && <p className="text_error">{passwordError}</p>}
           </label>
         </div>
-        <Button type="submit">Ingresar</Button>
+        <div className="container_btn_login">
+          <Button className="btn_login" type="submit">
+            Ingresar
+          </Button>
+        </div>
       </form>
     </section>
   );

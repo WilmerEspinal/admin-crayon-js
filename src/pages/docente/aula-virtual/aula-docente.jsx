@@ -1,7 +1,8 @@
-import { PanelMenu } from "primereact/panelmenu";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+
 import { Button } from "primereact/button";
+import { PanelMenu } from "primereact/panelmenu";
 import axios from "axios";
 
 const AulaVirtualDocente = () => {
@@ -27,6 +28,10 @@ const AulaVirtualDocente = () => {
       ], */
     },
   ];
+
+  useEffect(() => {
+    document.title = "Aula docente - Crayons";
+  }, []);
 
   useEffect(() => {
     const obtenerUsuario = async () => {

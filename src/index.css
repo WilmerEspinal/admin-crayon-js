@@ -10,7 +10,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: #003366;
 }
 
 .label_input {
@@ -18,11 +18,51 @@ body {
   flex-direction: column;
   gap: 2px;
   margin-bottom: 5px;
+  color: #ffffff;
 }
 
 .p-password-input {
   width: 300px;
 }
+
+
+.container_login > form {
+  padding: 50px 10px;
+  border: 2px solid #e5e7eb;
+  border-radius: 5px;
+}
+
+.container_login > form > div {
+  margin-bottom: 25px;
+}
+
+.container_btn_login {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ margin-bottom: 0 !important;
+}
+
+.container_btn_login > button {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+.logo_login {
+  width: 25%;
+  margin-bottom: 20px;
+}
+
+
+.container_checks {
+  margin-bottom: 5px;
+}
+
+
+
+
+
 
 /* OPEN ADMIN PAGE */
 .container_admin {
@@ -142,13 +182,67 @@ main {
   padding: 0 10px;
 }
 
+.container_home_editar {
+  padding: 0  15px 20px ;
+}
+
+
 /* END ADMIN PAGE */
 
 
 
 /* DOCENTE */
+
+.aul_docente {
+  display: initial;
+}
 .form_register {
   width: 300px;
+}
+
+.secction_grado_options {
+  width: 100%;
+  display: flex;
+}
+
+.container_lista_docente {
+  padding: 0 40px;
+
+}
+
+.conatiner_detalles_accion {
+  display: flex;
+ gap: 35px;
+}
+
+.conatiner_btn_accion {
+  display: flex;
+ gap: 5px;
+}
+
+.title_detalle_table {
+  font-size: 16px;
+  width: 290px; 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+}
+
+.home_editar {
+position: relative;
+padding: 15px 20px;
+}
+
+.container_mensaje {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  
+}
+.mensaje {
+  width: 300px;
+  position: absolute;
+  top: 0;
 }
 /* END DOCENTE */
 
@@ -157,6 +251,144 @@ main {
 
 
 
+/* OPEN ALUMNO */
+.container_table_cuotas{
+  padding: 0 20px;
+}
+/* END ALUMNO */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* OPEN HOME */
+.header_home {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  background-color: slateblue;
+}
+
+
+.header_home > nav > ul {
+  display: flex;
+  gap: 20px;
+}
+
+.header_home > nav > ul> li {
+  list-style: none;
+  
+}
+.header_home > nav > ul> li> a {
+ text-decoration: none;
+  color: #ffffff;
+}
+
+.header_home > nav > ul> li> a:hover {
+  text-decoration: none;
+   border-bottom: 2px solid red;
+ }
+
+ .main_home {
+  width: 100%;
+  margin-left: initial;
+  height: initial;
+ }
+
+ .hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  padding: 50px 0 ;
+  
+  background-color: #003366;
+ }
+
+ .title_colegio {
+  margin: 0;
+  color: #ffffff;
+  font-size: 34px;
+ }
+
+ .slogan {
+  margin: 0;
+  color: #cecece;
+  font-size: 18px;
+ }
+
+ .img_alumnos {
+  width: 45%;
+  border-radius: 5px;
+ }
+
+ .title_mision_vision {
+  text-align: center;
+  font-size: 26px;
+ }
+
+ .container_mision_vision {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  width: 90%;
+  gap: 30px;
+ }
+
+ .mision_text,.vision_text,.niveles_text {
+  text-align: justify;
+ }
+
+ .container_nivel {
+  width:30%;
+  height: 200px;
+  background-color: #003366;
+  padding: 0 5px;
+  border-radius: 5px;
+ }
+
+ .niveles {
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+  gap: 30px;
+  padding-bottom: 40px;
+ }
+
+ .title_nivel {
+  text-align: center;
+  font-size: 24px;
+  margin: 5px 0 0 0 ;
+  color: #ffffff;
+ }
+
+ .niveles_text {
+  color: #cecece;
+ }
+ 
+ 
+
+ .logo_home {
+  width: 150px;
+ }
+/* END HOME */
+
+
+.footer_home {
+  width: 100%;
+  height: 15vh;
+  background-color: #003366;
+}
 
 
 
@@ -211,3 +443,31 @@ main {
     transform: translateY(100%);
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,28 +1,34 @@
-import { PanelMenu } from "primereact/panelmenu";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+
 import { Button } from "primereact/button";
-import axios from "axios";
 import Logo from "../../assets/images/logo/logo-crayon.png";
+import { PanelMenu } from "primereact/panelmenu";
+import axios from "axios";
 
 const AdminPage = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState("");
 
+  useEffect(() => {
+    document.title = "Dashboard - Crayons";
+  }, []);
+
   const items = [
     {
       label: "Matriculas",
-      icon: "pi pi-file",
+      icon: "pi pi-id-card",
       items: [
         {
           label: "Nueva matricula",
-          icon: "pi pi-file",
+          icon: "pi pi-user-plus",
           command: () => navigate("registrar-matricula"),
         },
         {
           label: "Matriculados",
-          icon: "pi pi-image",
+          icon: "pi pi-users",
+          command: () => navigate("lista-alumnos"),
         },
       ],
     },
@@ -31,17 +37,36 @@ const AdminPage = () => {
   const itemDocente = [
     {
       label: "Docentes",
-      icon: "pi pi-file",
+      icon: "pi pi-id-card",
       items: [
         {
           label: "Agregar docente",
-          icon: "pi pi-file",
+          icon: "pi pi-user-plus",
           command: () => navigate("agregar-docente"),
         },
         {
           label: "Lista docentes",
-          icon: "pi pi-image",
+          icon: "pi pi-users",
+          command: () => navigate("lista-docente"),
         },
+      ],
+    },
+  ];
+
+  const itemCuotas = [
+    {
+      label: "Detalle cuotas",
+      icon: "pi pi-wallet",
+      items: [
+        {
+          label: "Todas las cuotas",
+          icon: "pi pi-list",
+          command: () => navigate("cuotas-detalle"),
+        },
+        // {
+        //   label: "Lista docentes",
+        //   icon: "pi pi-image",
+        // },
       ],
     },
   ];
@@ -86,6 +111,7 @@ const AdminPage = () => {
             <img className="logo_colegio" src={Logo} alt="Logo del colegio" />
             <PanelMenu model={items} className="w-full md:w-20rem" />
             <PanelMenu model={itemDocente} className="w-full md:w-20rem" />
+            <PanelMenu model={itemCuotas} className="w-full md:w-20rem" />
           </div>
 
           <div className="container_user_name">

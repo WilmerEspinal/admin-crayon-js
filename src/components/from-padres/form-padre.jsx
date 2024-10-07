@@ -1,8 +1,9 @@
-import axios from "axios";
 import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
-import { InputText } from "primereact/inputtext";
+import { Dropdown } from "primereact/dropdown";
 import { InputNumber } from "primereact/inputnumber";
+import { InputText } from "primereact/inputtext";
+import axios from "axios";
 import { useState } from "react";
 
 const FormPadre = ({ data, setData }) => {
@@ -20,6 +21,20 @@ const FormPadre = ({ data, setData }) => {
       .catch((error) => {
         console.error("Error al obtener datos", error);
       });
+  };
+
+  const relacion = [
+    { label: "Padre", value: "padre" },
+    { label: "Madre", value: "madre" },
+    { label: "Hermano", value: "Hermano" },
+    { label: "Abuelo", value: "abuelo" },
+  ];
+
+  const handleDropdownChange = (e, fieldName) => {
+    setData((prevData) => ({
+      ...prevData,
+      [fieldName]: e.value,
+    }));
   };
 
   const handleChange = (e) => {
@@ -49,6 +64,7 @@ const FormPadre = ({ data, setData }) => {
               name="dni"
               value={data.dni}
               onChange={handleChange}
+              required
             />
             <Button onClick={handleBuscar}>Buscar</Button>
           </span>
@@ -62,6 +78,7 @@ const FormPadre = ({ data, setData }) => {
             name="apellidoPaterno"
             value={data.apellidoPaterno}
             onChange={handleChange}
+            required
           />
         </label>
       </div>
@@ -72,6 +89,7 @@ const FormPadre = ({ data, setData }) => {
             name="apellidoMaterno"
             value={data.apellidoMaterno}
             onChange={handleChange}
+            required
           />
         </label>
       </div>
@@ -83,6 +101,7 @@ const FormPadre = ({ data, setData }) => {
             name="nombres"
             value={data.nombres}
             onChange={handleChange}
+            required
           />
         </label>
       </div>
@@ -94,6 +113,7 @@ const FormPadre = ({ data, setData }) => {
             placeholder="MM/DD/YYYY"
             value={data.date}
             onChange={handleDateChange}
+            required
           />
         </label>
       </div>
@@ -106,6 +126,7 @@ const FormPadre = ({ data, setData }) => {
             name="email"
             value={data.email}
             onChange={handleChange}
+            required
           />
         </label>
       </div>
@@ -117,6 +138,21 @@ const FormPadre = ({ data, setData }) => {
             name="telefono"
             value={data.telefono}
             onChange={handleChange}
+            required
+          />
+        </label>
+      </div>
+      <div>
+        <label className="container_inputs">
+          Relacion
+          <Dropdown
+            value={data.relacion}
+            onChange={(e) => handleDropdownChange(e, "relacion")}
+            options={relacion}
+            optionLabel="label"
+            placeholder="Seleccione"
+            className="w-full md:w-14rem"
+            required
           />
         </label>
       </div>

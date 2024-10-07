@@ -1,8 +1,8 @@
-import axios from "axios";
 import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
+import axios from "axios";
 
 const FromEstudiante = ({ data, setData }) => {
   const pais = [{ name: "Perú" }];
@@ -20,6 +20,10 @@ const FromEstudiante = ({ data, setData }) => {
         console.error("Error al obtener datos", error);
       });
   };
+
+  const departamento = [{ label: "Satipo", value: "satipo" }];
+  const provincia = [{ label: "Provincia", value: "provincia" }];
+  const distrito = [{ label: "Distrito", value: "distrito" }];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -70,6 +74,7 @@ const FromEstudiante = ({ data, setData }) => {
                 name="apellidoPaterno"
                 value={data.apellidoPaterno || ""}
                 onChange={handleChange}
+                required
               />
             </label>
           </div>
@@ -81,6 +86,7 @@ const FromEstudiante = ({ data, setData }) => {
                 name="apellidoMaterno"
                 value={data.apellidoMaterno || ""}
                 onChange={handleChange}
+                required
               />
             </label>
           </div>
@@ -92,6 +98,7 @@ const FromEstudiante = ({ data, setData }) => {
                 name="nombres"
                 value={data.nombres || ""}
                 onChange={handleChange}
+                required
               />
             </label>
           </div>
@@ -104,6 +111,7 @@ const FromEstudiante = ({ data, setData }) => {
                 value={data.date}
                 onChange={handleDateChange}
                 name="date"
+                required
               />
             </label>
           </div>
@@ -117,39 +125,49 @@ const FromEstudiante = ({ data, setData }) => {
                 optionLabel="name"
                 placeholder="Selecione su pais"
                 className="w-full md:w-14rem input"
+                required
               />
             </label>
           </div>
           <div>
             <label className="container_inputs">
               Departamento
-              <InputText
-                className="input"
-                name="departamento"
-                value={data.departamento || ""}
-                onChange={handleChange}
+              <Dropdown
+                value={data.departamento}
+                onChange={(e) => handleDropdownChange(e, "departamento")}
+                options={departamento}
+                optionLabel="label"
+                placeholder="Selecionar departamento"
+                className="w-full md:w-14rem"
+                required
               />
             </label>
           </div>
           <div>
             <label className="container_inputs">
               Provincia
-              <InputText
-                className="input"
-                name="provincia"
-                value={data.provincia || ""}
-                onChange={handleChange}
+              <Dropdown
+                value={data.provincia}
+                onChange={(e) => handleDropdownChange(e, "provincia")}
+                options={provincia}
+                optionLabel="label"
+                placeholder="Seleccionar provincia"
+                className="w-full md:w-14rem"
+                required
               />
             </label>
           </div>
           <div>
             <label className="container_inputs">
               Distrito
-              <InputText
-                className="input"
-                name="distrito"
-                value={data.distrito || ""}
-                onChange={handleChange}
+              <Dropdown
+                value={data.distrito}
+                onChange={(e) => handleDropdownChange(e, "distrito")}
+                options={distrito}
+                optionLabel="label"
+                placeholder="Seleccionar distrito"
+                className="w-full md:w-14rem"
+                required
               />
             </label>
           </div>
@@ -163,6 +181,7 @@ const FromEstudiante = ({ data, setData }) => {
                 placeholder="ejemplo@gmail.com"
                 value={data.email || ""}
                 onChange={handleChange}
+                required
               />
             </label>
           </div>
