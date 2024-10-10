@@ -107,7 +107,7 @@ const CuotasListaAdmin = () => {
             field="estado"
             header="Estado"
             body={(rowData) => (
-              <span style={{ color: rowData.estado === 0 ? "red" : "black" }}>
+              <span style={{ color: rowData.estado === 0 ? "red" : "green" }}>
                 {rowData.estado === 1 ? "Pagado" : "Pendiente"}
               </span>
             )}
@@ -161,7 +161,20 @@ const CuotasListaAdmin = () => {
             <Column field="ap_paterno" header="Apellido Paterno"></Column>
             <Column field="ap_materno" header="Apellido Materno"></Column>
             <Column field="costo_matricula" header="Costo Matrícula"></Column>
-            <Column field="matricula_estado" header="Estado Matrícula"></Column>
+            <Column
+              field="matricula_estado"
+              header="Estado Matrícula"
+              body={(rowData) => (
+                <span
+                  style={{
+                    color:
+                      rowData.matricula_estado === "Pagado" ? "green" : "red",
+                  }}
+                >
+                  {rowData.matricula_estado}
+                </span>
+              )}
+            ></Column>
           </DataTable>
         </div>
       )}

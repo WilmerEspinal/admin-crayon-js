@@ -15,10 +15,12 @@ const Asistencia = () => {
   const [alumnos, setAlumnos] = useState([]);
   const [asistencia, setAsistencia] = useState({});
 
+  // Cambia el título de la pestaña del navegador
   useEffect(() => {
-    document.title = "Registar asistencia - Crayons";
+    document.title = "Registrar asistencia - Crayons";
   }, []);
 
+  // Obtener la lista de grados
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
@@ -39,6 +41,7 @@ const Asistencia = () => {
       });
   }, []);
 
+  // Obtener la lista de cursos
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
@@ -61,6 +64,7 @@ const Asistencia = () => {
       });
   }, []);
 
+  // Obtener alumnos por grado seleccionado
   const fetchAlumnos = (gradoId) => {
     const token = localStorage.getItem("token");
     axios
@@ -71,15 +75,16 @@ const Asistencia = () => {
       })
       .then((response) => {
         const alumnosData = response.data;
-        console.log("Alumnos fetched:", alumnosData); // Log the fetched alumnos
+        console.log("Alumnos fetched:", alumnosData); // Log para verificar los alumnos obtenidos
         setAlumnos(alumnosData);
-        setAsistencia({}); // Reset attendance state when fetching new students
+        setAsistencia({}); // Reiniciar el estado de asistencia cuando se obtengan nuevos estudiantes
       })
       .catch((error) => {
         console.error("Error fetching alumnos:", error);
       });
   };
 
+  // Mostrar alumnos del grado seleccionado
   const handleShowStudents = () => {
     if (selectedGrado) {
       fetchAlumnos(selectedGrado);
@@ -88,6 +93,7 @@ const Asistencia = () => {
     }
   };
 
+  // Manejar cambio en el checkbox de asistencia
   const handleCheckboxChange = (idAlumno, checked) => {
     setAsistencia((prevState) => ({
       ...prevState,
@@ -95,18 +101,25 @@ const Asistencia = () => {
     }));
   };
 
+  // Guardar la asistencia
   const handleSaveAsistencia = () => {
     const token = localStorage.getItem("token");
 
-    // Crear asistenciaData desde alumnos
+    // Verificar que haya un curso seleccionado
+    if (!selectedCurso) {
+      alert("Por favor, selecciona un curso.");
+      return;
+    }
+
+    // Crear el objeto de asistencia con id_alumno, id_curso y estado de asistencia
     const asistenciaData = alumnos.map((alumno) => ({
-      id_alumno: alumno.id, // Usar el campo id_alumno aquí
+      id_alumno: alumno.id, // Usar id_alumno
+      id_curso: selectedCurso, // Añadir id_curso
       fecha: new Date().toISOString().split("T")[0], // Fecha actual en formato YYYY-MM-DD
-      estado_asistencia: asistencia[alumno.id] || false, // Usar id_alumno para el estado del checkbox
+      estado_asistencia: asistencia[alumno.id] || false, // Estado de asistencia basado en checkbox
     }));
 
-    // Log para verificar la estructura de asistenciaData
-    console.log("Asistencia Data:", asistenciaData);
+    console.log("Asistencia Data:", asistenciaData); // Verificar la estructura de asistenciaData
 
     // Verificar si asistenciaData está vacío
     if (asistenciaData.length === 0) {
@@ -114,7 +127,7 @@ const Asistencia = () => {
       return;
     }
 
-    // Enviar los datos al backend
+    // Enviar los datos de asistencia al backend
     axios
       .post(
         "http://127.0.0.1:8000/api/registrar-asistencia",
@@ -130,16 +143,12 @@ const Asistencia = () => {
         alert("Asistencia registrada con éxito");
       })
       .catch((error) => {
-        if (error.response && error.response.data) {
-          console.error("Error registrando asistencia:", error.response.data);
-          alert(`Error: ${JSON.stringify(error.response.data)}`);
-        } else {
-          console.error("Error registrando asistencia:", error);
-          alert("Error desconocido al registrar asistencia");
-        }
+        console.error("Error registrando asistencia:", error);
+        alert("Error desconocido al registrar asistencia");
       });
   };
 
+  // Template para renderizar el checkbox en la tabla
   const estadoBodyTemplate = (rowData) => {
     return (
       <Checkbox
@@ -152,9 +161,9 @@ const Asistencia = () => {
 
   return (
     <>
-      <section className="container_admin aul_docente">
+      <section className="container_lista_docente">
         <h1>Registrar nueva asistencia</h1>
-        <section className="secction_grado_options">
+        <section className="conatiner_btn_accion">
           <div>
             <Dropdown
               value={selectedGrado}
@@ -197,7 +206,13 @@ const Asistencia = () => {
           ) : (
             <p>No hay alumnos para mostrar.</p>
           )}
-          <Button onClick={handleSaveAsistencia} label="Guardar Asistencia" />
+          <div className="container_Save_btn">
+            <Button
+              className="btn_save_docente"
+              onClick={handleSaveAsistencia}
+              label="Guardar Asistencia"
+            />
+          </div>
         </section>
       </section>
     </>

@@ -56,13 +56,21 @@ const HistorialCuotas = () => {
     return <div>Cargando...</div>;
   }
 
+  const estadoBodyTemplate = (rowData) => {
+    return (
+      <span style={{ color: rowData.estado === "Pagado" ? "green" : "red" }}>
+        {rowData.estado}
+      </span>
+    );
+  };
+
   return (
     <div className="container_table_historial">
       <h2>Historial de Cuotas Pagadas</h2>
       <DataTable value={historialCuotas} tableStyle={{ minWidth: "50rem" }}>
         <Column field="dni" header="DNI" />
         <Column field="cuota_numero" header="Número de Cuota" />
-        <Column field="estado" header="Estado" />
+        <Column body={estadoBodyTemplate} header="Estado" />
         <Column field="annio" header="Año" />
       </DataTable>
     </div>

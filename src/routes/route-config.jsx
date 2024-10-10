@@ -15,6 +15,7 @@ import ListaAlumnosMatriculados from "../pages/admin/matricula/lista-matricula";
 import ListaDocentes from "../pages/admin/docente/lista-docentes";
 import Login from "../pages/auth/login/login.page";
 import Matricula from "../pages/admin/matricula/matricula.page";
+import PaymentSuccess from "../pages/paymentsucces";
 import PrivateRoute from "../pages/PrivateRoute";
 import RegistrarDocente from "../pages/admin/docente/registrar-docente";
 import { createBrowserRouter } from "react-router-dom";
@@ -117,6 +118,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+
   {
     path: "/aula-docente",
     element: (

@@ -244,6 +244,15 @@ padding: 15px 20px;
   position: absolute;
   top: 0;
 }
+
+.container_Save_btn {
+  display: flex;
+  justify-content: end;
+}
+
+.btn_save_docente {
+  margin-top: 15px;
+}
 /* END DOCENTE */
 
 
